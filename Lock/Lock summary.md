@@ -1,9 +1,9 @@
 | No. | Lock Type    | File      | Structure           | Member name               | Comment                                                         | Usage                                                |
 | --- | ------------ | --------- | ------------------- | ------------------------- | --------------------------------------------------------------- | ---------------------------------------------------- |
 | 1   | spinlock_t   | f2fs.h    | ckpt_req_control    | stat_lock                 | lock for below checkpoint time stats                            | [Link](./spinlock_t.md#spinlock_t-stat_lock)         |
-| 2   | spinlock_t   | f2fs.h    | discard_cmd         | lock                      | for state updating                                              |                                                      |
-| 3   | spinlock_t   | f2fs.h    | extent_tree_info    | extent_lock               | locking extent lru list                                         |                                                      |
-| 4   | spinlock_t   | f2fs.h    | f2fs_inode_info     | i_size_lock               | protect last_disk_size                                          |                                                      |
+| 2   | spinlock_t   | f2fs.h    | discard_cmd         | lock                      | for state updating                                              | [Link](./spinlock_t.md#spinlock_t-discard_cmd)       |
+| 3   | spinlock_t   | f2fs.h    | extent_tree_info    | extent_lock               | locking extent lru list                                         | [Link](./spinlock_t.md#spinlock_t-extent_tree_info)  |
+| 4   | spinlock_t   | f2fs.h    | f2fs_inode_info     | i_size_lock               | protect last_disk_size                                          | [Link](./spinlock_t.md#spinlock_t-i_size_lock)       |
 | 5   | spinlock_t   | f2fs.h    | f2fs_nm_info        | nat_list_lock             | protect clean nat entry list                                    |                                                      |
 | 6   | spinlock_t   | f2fs.h    | f2fs_nm_info        | nid_list_lock             | protect nid lists ops                                           |                                                      |
 | 7   | spinlock_t   | f2fs.h    | f2fs_bio_info       | io_lock                   | serialize DATAIOs                                               |                                                      |
@@ -18,10 +18,10 @@
 | 16  | spinlock_t   | f2fs.h    | f2fs_sb_info        | iostat_lock               | #ifdef CONFIG_F2FS_IOSTAT                                       |                                                      |
 | 17  | spinlock_t   | f2fs.h    | f2fs_sb_info        | iostat_lat_lock           | #ifdef CONFIG_F2FS_IOSTAT                                       |                                                      |
 | 18  | spinlock_t   | segment.h | free_segmap_info    | segmap_lock               | free segmap lock                                                |                                                      |
-| 19  | mutex        | f2fs.h    | discard_cmd_control | cmd_lock                  |                                                                 |                                                      |
-| 20  | mutex        | f2fs.h    | extent_tree_info    | extent_tree_lock          | locking extent radix tree                                       |                                                      |
-| 21  | mutex        | f2fs.h    | f2fs_nm_info        | build_lock                | lock for build free nids                                        |                                                      |
-| 22  | mutex        | f2fs.h    | f2fs_sb_info        | writepages                | mutex for writepages()                                          |                                                      |
+| 19  | mutex        | f2fs.h    | discard_cmd_control | cmd_lock                  |                                                                 | [Link](./mutex.md#mutex-cmd_lock)                    |
+| 20  | mutex        | f2fs.h    | extent_tree_info    | extent_tree_lock          | locking extent radix tree                                       | [Link](./mutex.md#mutex-extent_tree_lock)            |
+| 21  | mutex        | f2fs.h    | f2fs_nm_info        | build_lock                | lock for build free nids                                        | [Link](./mutex.md#mutex-build_lock)                  |
+| 22  | mutex        | f2fs.h    | f2fs_sb_info        | writepages                | mutex for writepages()                                          | [Link](./mutex.md#writepages)                        |
 | 23  | mutex        | f2fs.h    | f2fs_sb_info        | flush_lock                | for inode management & for flush exclusion                      |                                                      |
 | 24  | mutex        | f2fs.h    | f2fs_sb_info        | umount_mutex              | For shrinker support                                            |                                                      |
 | 25  | mutex        | segment.h | dirty_seglist_info  | seglist_lock              | lock for segment bitmaps                                        |                                                      |
