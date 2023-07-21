@@ -1,32 +1,30 @@
-## *rw_semaphore* journal_rwsem
+## *rw_semaphore* internal_rwsem
 
 **`Structure`** 
 ```c
-struct curseg_info /* for active log information */
+struct f2fs_rwsem
 ```
 
 **`Initialize`** 
 ```c
-(segment.c) build_curseg()
+(f2fs.h) __init_f2fs_rwsem()
 ```
 
 **`Usage : WRITE`**  
-current segment에서 cache된(journal) data를(nat/sit 등) 수정/삭제 할 때
+f2fs_rwsem을 제어하기 위한 wrapper 함수
 ```c
-(node.c) remove_nats_in_journal()
-(node.c) __flush_nat_entry_set()
-(segment.c) read_normal_summaries() /* update journal info */
-(segment.c) remove_sits_in_journal()
-(segment.c) f2fs_flush_sit_entries()
+(f2fs.h) f2fs_down_write()
+(f2fs.h) f2fs_down_write_trylock()
 ```
 
 **`Usage : READ`**  
-current segment에서 cache된(journal) data를(nat/sit 등) 찾을 때
+f2fs_rwsem을 제어하기 위한 wrapper 함수
 ```c
-(node.c) f2fs_get_node_info()
-(node.c) scan_curseg_cache()
-(segment.c) write_current_sum_page()
-(segment.c) build_sit_entries()
+(f2fs.h) f2fs_rwsem_is_locked()
+(f2fs.h) f2fs_rwsem_is_contended()
+(f2fs.h) f2fs_down_read()
+(f2fs.h) f2fs_down_read_trylock()
+(f2fs.h) f2fs_down_read_nested() /* #ifdef CONFIG_DEBUG_LOCK_ALLOC */
 ```
 <br>
 
