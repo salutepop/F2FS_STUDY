@@ -28,7 +28,7 @@ struct discard_cmd_control
 ```
 <br>
 
-## mutex extent_tree_lock
+## *mutex* extent_tree_lock
 
 **`Structure`** 
 ```c
@@ -52,7 +52,7 @@ struct extent_tree_info
 ```
 <br>
 
-## mutex build_lock
+## *mutex* build_lock
 
 **`Structure`** 
 ```c
@@ -73,7 +73,7 @@ Dummy
 ```
 <br>
 
-## mutex writepages
+## *mutex* writepages
 
 **`Structure`** 
 ```c
@@ -93,40 +93,100 @@ struct f2fs_sb_info
 ```
 <br>
 
-## mutex sample
+## *mutex* flush_lock
 
 **`Structure`** 
 ```c
-Dummy
+struct f2fs_sb_info
 ```
 
 **`Initialize`** 
 ```c
-Dummy
+(super.c) f2fs_fill_super()
 ```
 
 **`Usage`**  
 Dummy
 ```c
-Dummy
+(segment.c) f2fs_balance_fs_bg()
 ```
 <br>
 
-## mutex sample
+## *mutex* umount_mutex
 
 **`Structure`** 
 ```c
-Dummy
+struct f2fs_sb_info
 ```
 
 **`Initialize`** 
 ```c
-Dummy
+(super.c) init_sb_info()
 ```
 
 **`Usage`**  
 Dummy
 ```c
+(shrinker.c) f2fs_shrink_count()
+(shrinker.c) f2fs_shrink_scan()
+(super.c) f2fs_put_super()
+```
+<br>
+
+## *mutex* seglist_lock
+
+**`Structure`** 
+```c
+struct dirty_seglist_info
+```
+
+**`Initialize`** 
+```c
+(segment.c) build_dirty_segmap()
+```
+
+**`Usage`**  
 Dummy
+```c
+(gc.c) f2fs_get_victim()
+(gc.c) free_segment_range()
+(segment.c) locate_dirty_segment()
+(segment.c) f2fs_dirty_to_prefree()
+(segment.c) f2fs_get_unusable_blocks()
+(segment.c) get_free_segment()
+(segment.c) set_prefree_as_free_segments()
+(segment.c) f2fs_clear_prefree_segments()
+(segment.c) change_curseg()
+(segment.c) __f2fs_save_inmem_curseg()
+(segment.c) __f2fs_restore_inmem_curseg()
+(segment.c) init_dirty_segmap()
+(segment.c) discard_dirty_segmap()
+(segment.c) destroy_dirty_segmap()
+```
+<br>
+
+## *mutex* curseg_mutex
+
+**`Structure`** 
+```c
+struct curseg_info
+```
+
+**`Initialize`** 
+```c
+(segment.c) build_curseg()
+```
+
+**`Usage`**  
+Dummy
+```c
+(segment.c) write_current_sum_page()
+(segment.c) __f2fs_init_atgc_curseg()
+(segment.c) __f2fs_save_inmem_curseg()
+(segment.c) __f2fs_restore_inmem_curseg()
+(segment.c) f2fs_allocate_segment_for_resize()
+(segment.c) f2fs_allocate_data_block()
+(segment.c) f2fs_do_replace_block()
+(segment.c) read_normal_summaries() 
 ```
 <br>
