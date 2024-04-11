@@ -1,0 +1,93 @@
+| Function            | Hit     | Time(ms)  | Avg(us) | s^2(us)   | time_ratio(%) |
+|---------------------|---------|-----------|---------|-----------|---------------|
+| ext4_create         | 1000001 |  8966.082 |   9.121 |    33.123 |          50.3 |
+| __ext4_new_inode    | 1010126 |  6137.845 |   6.207 |    28.578 |          34.4 |
+| ext4_add_nondir     | 1000001 |   2502.97 |   2.535 |     3.179 |          14.0 |
+| __ext4_journal_stop | 1024651 |   217.484 |   0.214 |     0.025 |           1.2 |
+
+| Function            | Hit     | Time(ms)  | Avg(us) | s^2(us)   | time_ratio(%) |
+|---------------------|---------|-----------|---------|-----------|---------------|
+| f2fs_create         | 1000000 | 14720.847 |  14.004 | 17532.831 |          51.2 |
+| f2fs_new_inode      | 1010125 |  4356.364 |   4.353 |    92.674 |          15.1 |
+| f2fs_do_add_link    | 1010125 |  5007.473 |   4.985 |     9.471 |          17.4 |
+| f2fs_balance_fs     | 1010125 |  4687.434 |   3.906 |  17549.96 |          16.3 |
+
+
+
+
+
+
+__ext4_mark_inode_dirty (1:4, 3.8%)
+f2fs_mark_inode_dirty_sync (1:5, 1.7%)
+
+
+### touch test
+Test : touch								
+	1st	2nd	3rd			1st	2nd	3rd
+ext4_create        	182.783	82.913	88.069		f2fs_create       	532.845	105.605	115.311
+__ext4_new_inode   	158.613	61.774	66.652		f2fs_do_add_link  	243.415	57.589	53.977
+ext4_add_nondir    	18.64	15.902	16.597		f2fs_new_inode    	223.925	38.774	52.08
+__ext4_journal_stop	16.663	9.955	3.246		f2fs_balance_fs   	1.916	1.583	3.368
+
+
+**EXT4**
+  Function                               Hit    Time            Avg             s^2            
+  --------                               ---    ----            ---             ---            
+  ext4_create                              1    182.783 us      182.783 us      0.000 us       
+  __ext4_new_inode                         1    158.613 us      158.613 us      0.000 us       
+  ext4_add_nondir                          1    18.640 us       18.640 us       0.000 us       
+  __ext4_journal_stop                      5    16.663 us       3.332 us        15.484 us      
+
+  Function                               Hit    Time            Avg             s^2
+  --------                               ---    ----            ---             ---
+  ext4_create                              1    82.913 us       82.913 us       0.000 us 
+  __ext4_new_inode                         1    61.774 us       61.774 us       0.000 us 
+  ext4_add_nondir                          1    15.902 us       15.902 us       0.000 us 
+  __ext4_journal_stop                      5    9.955 us        1.991 us        0.303 us 
+
+  Function                               Hit    Time            Avg             s^2        
+  --------                               ---    ----            ---             ---        
+  ext4_create                              1    88.069 us       88.069 us       0.000 us   
+  __ext4_new_inode                         1    66.652 us       66.652 us       0.000 us   
+  ext4_add_nondir                          1    16.597 us       16.597 us       0.000 us   
+  __ext4_journal_stop                      2    3.246 us        1.623 us        0.362 us   
+**F2FS**
+==> trace_stat/function11 <==                                                               
+  Function                               Hit    Time            Avg             s^2         
+  --------                               ---    ----            ---             ---         
+  f2fs_create                              1    532.845 us      532.845 us      0.000 us    
+  f2fs_do_add_link                         1    243.415 us      243.415 us      0.000 us    
+  f2fs_new_inode                           1    223.925 us      223.925 us      0.000 us    
+  f2fs_balance_fs                          2    1.916 us        0.958 us        0.470 us    
+  
+
+  Function                               Hit    Time            Avg             s^2       
+  --------                               ---    ----            ---             ---       
+  f2fs_create                              1    105.605 us      105.605 us      0.000 us  
+  f2fs_do_add_link                         1    57.589 us       57.589 us       0.000 us  
+  f2fs_new_inode                           1    38.774 us       38.774 us       0.000 us  
+  f2fs_balance_fs                          2    1.583 us        0.791 us        0.262 us  
+
+    Function                               Hit    Time            Avg             s^2
+  --------                               ---    ----            ---             ---
+  f2fs_create                              1    115.311 us      115.311 us      0.000 us    
+  f2fs_do_add_link                         1    53.977 us       53.977 us       0.000 us    
+  f2fs_new_inode                           1    52.080 us       52.080 us       0.000 us    
+  f2fs_balance_fs                          4    3.368 us        0.842 us        0.344 us    
+
+
+---
+
+  Function                               Hit    Time            Avg             s^2
+  --------                               ---    ----            ---             ---
+  f2fs_create                              1    450.519 us      450.519 us      0.000 us    
+  f2fs_do_add_link                         1    237.511 us      237.511 us      0.000 us    
+  f2fs_new_inode                           1    153.084 us      153.084 us      0.000 us    
+  f2fs_balance_fs                          2    1.458 us        0.729 us        0.131 us  
+
+  Function                               Hit    Time            Avg             s^2
+  --------                               ---    ----            ---             ---
+  f2fs_create                              1    95.170 us       95.170 us       0.000 us  
+  f2fs_do_add_link                         1    45.781 us       45.781 us       0.000 us  
+  f2fs_new_inode                           1    39.755 us       39.755 us       0.000 us  
+  f2fs_balance_fs                          2    1.570 us        0.785 us        0.224 us  

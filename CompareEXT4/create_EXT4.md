@@ -1,0 +1,13 @@
+ext4_create (19.4)
+    __ext4_new_inode    (8.6)
+        ext4_get_group_desc (1.3)
+        ext4_get_group_info (0.2)
+        ext4_read_inode_bitmap  (0.3)
+        __ext4_journal_start_sb (0.3)
+        __ext4_handle_dirty_metadata    (0.3)
+    ext4_add_nondir (10.5)
+        ext4_add_entry  (9.6)
+        __ext4_mark_inode_dirty (3.8)
+        ext4_orphan_add (0.0)
+    __ext4_journal_stop (0.1)
+
